@@ -101,17 +101,14 @@ Important clarification:
 
 ---
 
-### Diagram (Explain verbally)
+### Diagramflowchart LR
 
-Imagine:
+    Client["Client (Browser)"]
+    Server["Server"]
 
-* Left side → Client (browser)
-* Right side → Server
+    Client -- "Request" --> Server
+    Server -- "Response" --> Client
 
-Flow:
-
-1. Arrow from client → server (request)
-2. Arrow from server → client (response)
 
 ---
 
@@ -148,7 +145,166 @@ Flow:
 
 ### When NOT to Use
 
-(Not explicitly mentioned in transcript)
+# 1. When You Need Fully Decentralized Communication
+
+## Problem
+
+In client-server systems:
+
+* Server becomes central authority
+* All communication depends on it
+
+If server fails:
+
+* Entire system may stop working
+
+---
+
+## Better Alternative
+
+Use:
+
+* Peer-to-Peer (P2P) architecture
+
+Examples:
+
+* BitTorrent
+* Blockchain systems
+
+---
+
+## Why?
+
+Every node can communicate directly with others without relying on one central server.
+
+---
+
+# 2. When Single Point of Failure is Unacceptable
+
+## Problem
+
+Traditional client-server systems can fail if:
+
+* Server crashes
+* Datacenter goes down
+* Network path breaks
+
+---
+
+## Better Alternative
+
+* Distributed systems
+* Decentralized architectures
+
+---
+
+## Example
+
+Critical military or highly fault-tolerant systems may avoid depending on one central server.
+
+---
+
+# 3. Very Small Local Applications
+
+## Problem
+
+Using client-server adds:
+
+* Networking overhead
+* Server setup complexity
+* Communication protocols
+
+For tiny applications, this is unnecessary.
+
+---
+
+## Example
+
+A simple:
+
+* Calculator app
+* Offline notes app
+* Local desktop tool
+
+does not need a server.
+
+---
+
+# 4. Extremely Low-Latency Local Communication
+
+## Problem
+
+Network communication introduces:
+
+* Serialization
+* Packet transfer
+* Network delays
+
+---
+
+## Better Alternative
+
+Direct in-memory communication or local process communication.
+
+---
+
+## Example
+
+High-performance game engines or embedded systems may avoid full client-server communication internally.
+
+---
+
+# 5. Systems With Intermittent Internet Connectivity
+
+## Problem
+
+Client-server heavily depends on server reachability.
+
+If internet disconnects:
+
+* Client may stop functioning
+
+---
+
+## Better Alternative
+
+Offline-first architectures.
+
+---
+
+## Example
+
+Apps designed for rural/offline environments.
+
+---
+
+# 6. Massive Scalability Without Central Coordination
+
+## Problem
+
+As clients increase:
+
+* Server load increases
+* Infrastructure cost increases
+
+---
+
+## Better Alternative
+
+Distributed peer systems.
+
+---
+
+# Quick Summary
+
+| Situation                     | Why Client-Server is Bad   |
+| ----------------------------- | -------------------------- |
+| Decentralized systems         | Central authority unwanted |
+| High fault tolerance needed   | Server failure risk        |
+| Tiny local apps               | Overengineering            |
+| Ultra-low latency systems     | Network overhead           |
+| Offline-first apps            | Internet dependency        |
+| Huge distributed coordination | Central bottleneck         |
 
 ---
 
@@ -217,12 +373,29 @@ Typing `amazon.com`:
 
 ---
 
-### Diagram (Explain verbally)
+### Diagram 
 
-1. Client → DNS server (query)
-2. DNS server → Client (IP response)
-3. Client → Actual server (request)
+flowchart LR
 
+    Client["Client"]
+    
+    Packet["Packet
+    -------------------
+    Metadata:
+    - Source IP
+    - Destination IP
+    - Port
+    - Protocol
+    
+    Data:
+    - Request Content
+    - Payload
+    "]
+
+    Server["Server"]
+
+    Client --> Packet
+    Packet --> Server
 ---
 
 ### Key Properties
@@ -295,10 +468,24 @@ Solution:
 
 ---
 
-### Diagram (Explain verbally)
+### Diagram 
 
-* Multiple machines with unique IDs
-* Data flows between IP addresses
+flowchart LR
+
+    A["Machine A
+    IP: 192.168.1.10"]
+
+    B["Machine B
+    IP: 172.16.0.5"]
+
+    C["Machine C
+    IP: 10.0.0.8"]
+
+    A -- "Data Packets" --> B
+    B -- "Response Packets" --> A
+
+    B -- "Data Transfer" --> C
+    C -- "Reply" --> B
 
 ---
 
@@ -310,11 +497,6 @@ Solution:
 
 ---
 
-### Trade-offs / Limitations
-
-(Not explicitly discussed)
-
----
 
 ### Common Mistakes
 
@@ -372,11 +554,29 @@ Problem:
 
 ---
 
-### Diagram (Explain verbally)
+### Diagram
 
-* One building (IP)
-* Multiple apartments (ports)
-* Client chooses correct apartment
+flowchart TB
+
+    Client["Client"]
+
+    Building["Server IP Address
+    (Apartment Building)"]
+
+    Port80["Port 80
+    HTTP Service"]
+
+    Port443["Port 443
+    HTTPS Service"]
+
+    Port3306["Port 3306
+    Database Service"]
+
+    Client -->|"Connect to Port 443"| Building
+
+    Building --> Port80
+    Building --> Port443
+    Building --> Port3306
 
 ---
 
@@ -452,11 +652,29 @@ Problem:
 
 ---
 
-### Diagram (Explain verbally)
+### Diagram
 
-* Packet traveling from client to server
-* Contains metadata + data
+flowchart LR
 
+    Client["Client"]
+
+    Packet["Network Packet
+    
+    Metadata:
+    • Source IP
+    • Destination IP
+    • Port Number
+    • Protocol Info
+    
+    Data:
+    • Request Payload
+    • Message Content
+    "]
+
+    Server["Server"]
+
+    Client -- "Send Packet" --> Packet
+    Packet -- "Transmit" --> Server
 ---
 
 ### Key Properties

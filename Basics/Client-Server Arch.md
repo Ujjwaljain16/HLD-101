@@ -8,7 +8,7 @@
 
 ### What is it?
 
-Client-server architecture is the **fundamental model of how computers communicate over the internet**. 
+Client-server architecture is the **fundamental model of how computers communicate over the internet**.
 
 It consists of two main entities:
 
@@ -41,7 +41,7 @@ Real-world systems using this:
 * Mobile apps
 * IoT devices
 
-All operate using this model. 
+All operate using this model.
 
 ---
 
@@ -97,18 +97,21 @@ Key concept:
 Important clarification:
 
 * Amazon is **not a single server**, but many servers
-* For simplicity, we treat it as one logical server 
+* For simplicity, we treat it as one logical server
 
 ---
 
-### Diagramflowchart LR
+### Diagram
+
+```mermaid
+flowchart LR
 
     Client["Client (Browser)"]
     Server["Server"]
 
     Client -- "Request" --> Server
     Server -- "Response" --> Client
-
+```
 
 ---
 
@@ -121,6 +124,7 @@ Important clarification:
   * Web hosting
   * Data storage
   * Payment processing
+
 * Client does not need internal server knowledge
 * Communication happens via data packets
 
@@ -297,14 +301,14 @@ Distributed peer systems.
 
 # Quick Summary
 
-| Situation                     | Why Client-Server is Bad   |
-| ----------------------------- | -------------------------- |
-| Decentralized systems         | Central authority unwanted |
-| High fault tolerance needed   | Server failure risk        |
-| Tiny local apps               | Overengineering            |
-| Ultra-low latency systems     | Network overhead           |
-| Offline-first apps            | Internet dependency        |
-| Huge distributed coordination | Central bottleneck         |
+| Situation | Why Client-Server is Bad |
+|---|---|
+| Decentralized systems | Central authority unwanted |
+| High fault tolerance needed | Server failure risk |
+| Tiny local apps | Overengineering |
+| Ultra-low latency systems | Network overhead |
+| Offline-first apps | Internet dependency |
+| Huge distributed coordination | Central bottleneck |
 
 ---
 
@@ -329,7 +333,7 @@ Distributed peer systems.
 
 ### What is it?
 
-DNS is a system that **translates domain names into IP addresses**. 
+DNS is a system that **translates domain names into IP addresses**.
 
 ---
 
@@ -373,12 +377,13 @@ Typing `amazon.com`:
 
 ---
 
-### Diagram 
+### Diagram
 
+```mermaid
 flowchart LR
 
     Client["Client"]
-    
+
     Packet["Packet
     -------------------
     Metadata:
@@ -386,7 +391,7 @@ flowchart LR
     - Destination IP
     - Port
     - Protocol
-    
+
     Data:
     - Request Content
     - Payload
@@ -396,6 +401,8 @@ flowchart LR
 
     Client --> Packet
     Packet --> Server
+```
+
 ---
 
 ### Key Properties
@@ -431,7 +438,7 @@ flowchart LR
 
 ### What is it?
 
-An IP address is a **unique identifier of a machine on the internet**. 
+An IP address is a **unique identifier of a machine on the internet**.
 
 ---
 
@@ -468,8 +475,9 @@ Solution:
 
 ---
 
-### Diagram 
+### Diagram
 
+```mermaid
 flowchart LR
 
     A["Machine A
@@ -486,6 +494,7 @@ flowchart LR
 
     B -- "Data Transfer" --> C
     C -- "Reply" --> B
+```
 
 ---
 
@@ -496,7 +505,6 @@ flowchart LR
 * Used for routing data packets
 
 ---
-
 
 ### Common Mistakes
 
@@ -516,7 +524,7 @@ flowchart LR
 
 ### What is it?
 
-Ports are **logical channels on a machine where services listen for requests**. 
+Ports are **logical channels on a machine where services listen for requests**.
 
 ---
 
@@ -542,7 +550,9 @@ Problem:
 
    * IP address
    * Port number
+
 2. Server listens on that port
+
 3. Communication happens
 
 ---
@@ -550,12 +560,13 @@ Problem:
 ### Example
 
 * HTTP → Port 80
-* HTTPS → Port 8443 
+* HTTPS → Port 8443
 
 ---
 
 ### Diagram
 
+```mermaid
 flowchart TB
 
     Client["Client"]
@@ -577,6 +588,7 @@ flowchart TB
     Building --> Port80
     Building --> Port443
     Building --> Port3306
+```
 
 ---
 
@@ -612,7 +624,7 @@ flowchart TB
 
 ### What is it?
 
-HTTP is a **method of sending data between client and server**. 
+HTTP is a **method of sending data between client and server**.
 
 ---
 
@@ -654,18 +666,19 @@ Problem:
 
 ### Diagram
 
+```mermaid
 flowchart LR
 
     Client["Client"]
 
     Packet["Network Packet
-    
+
     Metadata:
     • Source IP
     • Destination IP
     • Port Number
     • Protocol Info
-    
+
     Data:
     • Request Payload
     • Message Content
@@ -675,6 +688,8 @@ flowchart LR
 
     Client -- "Send Packet" --> Packet
     Packet -- "Transmit" --> Server
+```
+
 ---
 
 ### Key Properties
@@ -733,5 +748,3 @@ flowchart LR
 5. Difference between IP and port?
 6. How does a browser reach a server?
 7. What happens when you type a URL?
-
----

@@ -1,8 +1,8 @@
-# PART 1 — FOUNDATIONS OF SCALABILITY
+# PART 1 - FOUNDATIONS OF SCALABILITY
 
 # Understanding WHY Systems Need to Scale
 
-# SECTION 0 — ORIENTATION
+# SECTION 0 - ORIENTATION
 
 # What is this topic about?
 
@@ -16,7 +16,7 @@ Before learning:
 * CDNs,
 * queues,
 
-you must first understand:
+we must first understand:
 WHY systems fail as they grow.
 
 Scalability is fundamentally about:
@@ -61,7 +61,7 @@ Scalability is what separates:
 
 This part is the conceptual foundation for all future system design topics.
 
-Everything later:
+Everything later like :
 
 * load balancing,
 * distributed systems,
@@ -76,9 +76,9 @@ This section builds the mental model needed to understand why those systems exis
 
 ---
 
-# What will you fully understand by the end?
+# What will we fully understand by the end?
 
-By the end of this part, you will understand:
+By the end of this part, we will understand:
 
 * what scalability actually means,
 * why it is difficult,
@@ -91,7 +91,7 @@ By the end of this part, you will understand:
 
 ---
 
-# Mental Prerequisite Check
+# Prerequisite Check
 
 Required:
 
@@ -102,7 +102,7 @@ No distributed systems knowledge required.
 
 ---
 
-# The Landscape — Key Topics Covered
+# The Landscape - Key Topics Covered
 
 This part covers:
 
@@ -199,7 +199,7 @@ Scalability exists because successful systems grow beyond the limits of their or
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 A system is scalable if:
 
@@ -290,25 +290,9 @@ server crashes.
 
 ---
 
-# Visual / Diagram Description
+#  Diagram
 
-[Diagram]
-
-A graph:
-
-* X-axis = workload/users
-* Y-axis = performance/throughput
-
-Two curves:
-
-* non-scalable system flattens quickly,
-* scalable system grows proportionally with resources.
-
-Another diagram:
-Single server
-→ overloaded server
-→ multiple servers
-→ distributed architecture.
+![alt text](assets/image.png)
 
 ---
 
@@ -440,8 +424,6 @@ This concept leads directly into:
 
 # Quick Summary
 
-[Quick Summary]
-
 * Scalability = efficient growth handling
 * Adding resources should improve performance proportionally
 * Scalability is different from raw performance
@@ -450,14 +432,11 @@ This concept leads directly into:
 
 ---
 
-─────────────────────────────────────────────
 Bridge:
 Now that we understand what scalability means, we need to understand WHAT exactly grows inside a system and WHY systems become overloaded.
-─────────────────────────────────────────────
+
 
 # 2. UNDERSTANDING WORKLOAD & SYSTEM GROWTH
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -466,8 +445,6 @@ Scalability problems occur because workload grows faster than system resources c
 ---
 
 # Intuition First
-
-[Analogy]
 
 Imagine a highway.
 
@@ -511,7 +488,7 @@ which resources are under pressure.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea 
 
 Workload growth appears in several dimensions:
 
@@ -566,7 +543,7 @@ Real systems constantly balance both.
 
 ---
 
-# How It Works — Step by Step
+# How It Works
 
 Example:
 Instagram traffic grows.
@@ -614,23 +591,8 @@ Growth alone creates failure.
 
 ---
 
-# Visual / Diagram Description
-
-[Diagram]
-
-Traffic increases over time.
-
-System resources:
-
-* CPU
-* memory
-* disk
-* network
-
-shown as filling upward like water tanks.
-
-One tank reaches maximum first:
-that becomes the bottleneck.
+# Diagram
+![alt text](assets/image-1.png)
 
 ---
 
@@ -695,25 +657,20 @@ This section leads into:
 
 # Quick Summary
 
-[Quick Summary]
-
 * Systems scale along multiple dimensions
 * Growth stresses physical resources
 * Bottlenecks depend on workload type
 * Throughput and latency are different
 * Resource saturation causes failures
+---
+
+> **Bridge:**
+Now we can understand one of the deepest ideas in scalability:
+every scalability problem is fundamentally a resource problem.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
-Now we can understand one of the deepest ideas in scalability:
-every scalability problem is fundamentally a resource problem.
-─────────────────────────────────────────────
-
 # 3. RESOURCE-LEVEL THINKING
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -815,8 +772,6 @@ Important concepts from source material:
 
 # SSD vs HDD Intuition
 
-[Analogy]
-
 HDD:
 like finding a book by physically walking through a warehouse.
 
@@ -899,23 +854,9 @@ Not compute.
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-A server diagram:
-
-* CPU
-* RAM
-* disk
-* network
-
-All connected.
-
-Traffic arrows increase.
-
-One component becomes red first:
-that component is bottleneck.
+![alt text](assets/image-2.png)
 
 ---
 
@@ -978,8 +919,6 @@ This section is foundational for:
 
 # Quick Summary
 
-[Quick Summary]
-
 * Scalability is constrained by physical resources
 * CPU is not the only bottleneck
 * Disk and network are often dominant
@@ -990,9 +929,9 @@ This section is foundational for:
 
 # END OF PART 1 — FOUNDATIONAL UNDERSTANDING
 
-# What You Should Understand Now
+# What We Should Understand Now
 
-You should now understand:
+We should now understand:
 
 * what scalability actually means,
 * why systems fail as they grow,
@@ -1003,6 +942,6 @@ You should now understand:
 
 Most importantly:
 
-You should now think about systems as:
+> We should now think about systems as:
 resource-constrained evolving architectures,
 NOT just “applications.”

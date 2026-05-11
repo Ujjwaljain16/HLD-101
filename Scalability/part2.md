@@ -1,17 +1,6 @@
-# PART 2 — FROM SINGLE SERVER TO HORIZONTAL SYSTEMS
+# PART 2: FROM SINGLE SERVER TO HORIZONTAL SYSTEMS
 
 # How Real Systems Begin to Scale
-
-Topic: Single Server Evolution → Horizontal Scaling
-Difficulty: Beginner → Intermediate
-Purpose: Understand how real systems evolve from one machine into distributed multi-server architectures.
-
-Primary Source Basis:
-
-* CS75 scalability lecture
-* “Scalability for Dummies”
-* “Scale From Zero to Millions of Users”
-* Introductory system design sources     
 
 ---
 
@@ -19,25 +8,17 @@ Primary Source Basis:
 
 # What is this part about?
 
-This part teaches:
-how real systems evolve when one machine becomes insufficient.
+This part teaches how real systems evolve when one machine becomes insufficient.
 
 This is one of the most important transitions in all of system design.
 
-Initially:
-everything runs on one machine.
+Initially, everything runs on one machine.
 
-Eventually:
-traffic,
-data,
-and concurrent users
-grow beyond what one server can handle.
+Eventually, traffic, data, and concurrent users grow beyond what one server can handle.
 
-At that moment:
-distributed systems begin.
+At that moment: distributed systems begin.
 
-This section explains:
-WHY that transition happens.
+This section explains why that transition happens.
 
 ---
 
@@ -87,9 +68,9 @@ This becomes the foundation for:
 
 ---
 
-# What will you understand by the end?
+# What will we understand by the end?
 
-By the end of this part, you will understand:
+By the end of this part, we will understand:
 
 * how single-server systems work,
 * why they fail,
@@ -102,7 +83,7 @@ By the end of this part, you will understand:
 
 ---
 
-# Mental Prerequisite Check
+# Prerequisite Check
 
 Required:
 
@@ -128,8 +109,6 @@ Required:
 
 # 1. THE SINGLE SERVER WORLD
 
-─────────────────────────────────────────────
-
 # The One-Line Definition
 
 A single-server architecture runs the entire application stack on one machine.
@@ -138,7 +117,6 @@ A single-server architecture runs the entire application stack on one machine.
 
 # Intuition First
 
-[Analogy]
 
 Imagine a tiny shop.
 
@@ -182,7 +160,7 @@ this is ideal.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Single-server architecture means:
 all application components live on one machine.
@@ -249,21 +227,9 @@ resource demand is tiny.
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-Internet
-↓
-Single Server
-├── Web Server
-├── Backend
-├── Database
-├── Cache
-└── File Storage
-
-Everything inside one box.
-
+![alt text](assets/image3.png)
 ---
 
 # Key Properties and Characteristics
@@ -334,20 +300,7 @@ This often creates unnecessary complexity.
 Single-server systems are often enough initially.
 
 ---
-
-# Connection to Other Concepts
-
-This section leads directly into:
-
-* hardware bottlenecks,
-* vertical scaling,
-* distributed systems.
-
----
-
 # Quick Summary
-
-[Quick Summary]
 
 * Most systems start with one server
 * Simple architectures are valuable early
@@ -357,16 +310,14 @@ This section leads directly into:
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 Now we understand how simple systems begin.
 The next question becomes:
 what happens when this single machine becomes overloaded?
-─────────────────────────────────────────────
 
 # 2. VERTICAL SCALING — SCALING UP
 
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -375,8 +326,6 @@ Vertical scaling means increasing the power of a single machine.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Your restaurant becomes crowded.
 
@@ -411,7 +360,7 @@ making the machine stronger.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Increase machine resources:
 
@@ -456,21 +405,8 @@ system handles significantly more traffic.
 
 ---
 
-# Visual / Diagram Description
-
-[Diagram]
-
-Small server
-↓ upgrade
-Large server
-
-More:
-
-* CPU
-* memory
-* disk speed
-
-Same architecture.
+# Diagram
+![alt text](assets/image4.png)
 
 ---
 
@@ -532,19 +468,7 @@ one machine is no longer enough.
 
 ---
 
-# Connection to Other Concepts
-
-This leads directly into:
-
-* hardware evolution,
-* horizontal scaling,
-* distributed systems.
-
----
-
 # Quick Summary
-
-[Quick Summary]
 
 * Vertical scaling = stronger machine
 * Simple but limited
@@ -554,15 +478,14 @@ This leads directly into:
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 To understand why vertical scaling eventually fails,
 we need to understand the actual hardware limits underneath modern systems.
-─────────────────────────────────────────────
+
+---
 
 # 3. HARDWARE EVOLUTION & RESOURCE LIMITS
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -619,6 +542,8 @@ Many tasks make progress over time.
 
 Many tasks literally execute simultaneously.
 
+The key difference is that concurrency is about dealing with many things at once, while parallelism is about doing many things at once
+
 Modern multi-core servers enable:
 true parallelism.
 
@@ -641,8 +566,6 @@ web server scalability.
 ---
 
 # Storage Evolution
-
-The source material discussed three major storage categories:
 
 | Storage Type | Characteristics              |
 | ------------ | ---------------------------- |
@@ -694,7 +617,7 @@ database scalability.
 
 ---
 
-# SAS vs SATA
+# SAS (Serial Attached SCSI) vs SATA (Serial Advanced Technology Attachment)
 
 SAS drives:
 
@@ -741,21 +664,9 @@ Not compute.
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-Server internals:
-
-* CPU
-* RAM
-* storage
-* network
-
-Traffic arrows stress all resources differently.
-
-Disk becomes red first:
-bottleneck identified.
+![alt text](assets/image5.png)
 
 ---
 
@@ -794,8 +705,6 @@ Many real bottlenecks occur in:
 
 # Quick Summary
 
-[Quick Summary]
-
 * Scalability is constrained by hardware
 * Multi-core CPUs improved concurrency
 * SSDs transformed DB performance
@@ -804,16 +713,15 @@ Many real bottlenecks occur in:
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 Eventually even powerful hardware becomes insufficient.
 That is when systems begin the most important architectural transition:
 horizontal scaling.
-─────────────────────────────────────────────
+
+---
 
 # 4. HORIZONTAL SCALING — SCALING OUT
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -822,8 +730,6 @@ Horizontal scaling means increasing capacity by adding more machines.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Instead of one giant restaurant:
 open many smaller restaurants.
@@ -904,19 +810,9 @@ assuming:
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-Clients
-↓
-Multiple servers:
-
-* Server 1
-* Server 2
-* Server 3
-
-Traffic distributed among them.
+![alt text](assets/image6.png)
 
 ---
 
@@ -996,8 +892,6 @@ Horizontal scaling directly leads into:
 
 # Quick Summary
 
-[Quick Summary]
-
 * Horizontal scaling = adding more servers
 * Removes single-machine dependency
 * Enables internet-scale systems
@@ -1008,9 +902,9 @@ Horizontal scaling directly leads into:
 
 # END OF PART 2 — EVOLUTION INTO DISTRIBUTED SYSTEMS
 
-# What You Should Understand Now
+# What we should understand now
 
-You should now understand:
+We should now understand:
 
 * how real systems begin,
 * why one machine eventually fails,
@@ -1022,7 +916,7 @@ You should now understand:
 
 Most importantly:
 
-You should now understand that:
+We should now understand that:
 horizontal scaling is NOT “just more servers.”
 
 It is the beginning of distributed systems engineering.

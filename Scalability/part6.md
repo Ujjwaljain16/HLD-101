@@ -2,17 +2,6 @@
 
 # How Scalable Systems Survive Failure
 
-Topic: Reliability Engineering, Redundancy, Failover & Resilience
-Difficulty: Intermediate → Advanced
-Purpose: Understand why failure is unavoidable at scale and how distributed systems are engineered to survive it.
-
-Primary Source Basis:
-
-* Werner Vogels — “A Word on Scalability”
-* CS75 scalability lecture
-* RAID & redundancy concepts from provided material
-* Distributed infrastructure reliability discussions     
-
 ---
 
 # SECTION 0 — ORIENTATION
@@ -106,9 +95,9 @@ This becomes foundational for:
 
 ---
 
-# What will you understand by the end?
+# What will we understand by the end?
 
-By the end of this part, you will understand:
+By the end of this part, we will understand:
 
 * redundancy,
 * SPOFs,
@@ -151,8 +140,6 @@ Required:
 
 # 1. FAILURE IS NORMAL AT SCALE
 
-─────────────────────────────────────────────
-
 # The One-Line Definition
 
 As systems grow large enough, component failures become constant and unavoidable.
@@ -161,10 +148,8 @@ As systems grow large enough, component failures become constant and unavoidable
 
 # Intuition First
 
-[Analogy]
-
 Suppose:
-you own:
+we own:
 1 restaurant.
 
 Equipment failure:
@@ -200,7 +185,7 @@ something is always broken.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea 
 
 Large-scale systems must assume:
 
@@ -233,7 +218,6 @@ Suppose:
 
 Even:
 0.1% daily failure rate
-=======================
 
 100 failing machines/day.
 
@@ -284,8 +268,6 @@ continuous partial failure.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Failure becomes normal at scale
 * Reliability must be designed intentionally
 * Large systems constantly experience failures
@@ -293,15 +275,15 @@ continuous partial failure.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+
+# Bridge
+
 The first major reliability problem is:
 single points of failure.
-─────────────────────────────────────────────
+
+---
 
 # 2. SINGLE POINTS OF FAILURE (SPOF)
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -310,8 +292,6 @@ A Single Point of Failure is any component whose failure can crash the entire sy
 ---
 
 # Intuition First
-
-[Analogy]
 
 Imagine:
 an entire city depends on:
@@ -340,7 +320,7 @@ These create catastrophic fragility.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 If one component failure causes:
 system-wide outage,
@@ -366,13 +346,8 @@ Load Balancer
 
 Problem:
 DB failure
-==========
 
-entire system outage.
-
-DB is SPOF.
-
----
+--- 
 
 # Hidden Production Insight
 
@@ -381,8 +356,6 @@ Eliminating SPOFs is one of the central goals of distributed architecture.
 Many scalability techniques actually exist for:
 availability,
 not throughput.
-
-This was strongly emphasized in Werner Vogels’ article.
 
 ---
 
@@ -439,8 +412,6 @@ System still fragile.
 
 # Quick Summary
 
-[Quick Summary]
-
 * SPOFs can crash entire systems
 * Large systems aggressively remove them
 * Redundancy improves availability
@@ -448,15 +419,14 @@ System still fragile.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 To eliminate SPOFs,
 systems introduce redundancy.
-─────────────────────────────────────────────
+
+---
 
 # 3. REDUNDANCY — THE FOUNDATION OF RESILIENCE
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -465,8 +435,6 @@ Redundancy means duplicating critical components so failures do not stop the sys
 ---
 
 # Intuition First
-
-[Analogy]
 
 Airplanes contain:
 multiple backup systems.
@@ -488,7 +456,7 @@ continued operation despite failures.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea 
 
 Critical components are duplicated:
 
@@ -583,8 +551,6 @@ replicate failures.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Redundancy duplicates critical infrastructure
 * Improves availability/resilience
 * Introduces coordination complexity
@@ -592,15 +558,14 @@ replicate failures.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 One of the earliest and most important forms of redundancy exists at the storage layer:
 RAID.
-─────────────────────────────────────────────
 
-# 4. RAID — STORAGE REDUNDANCY
+---
 
-─────────────────────────────────────────────
+# 4. RAID (Redundant Array of Independent Disks) — STORAGE REDUNDANCY
 
 # The One-Line Definition
 
@@ -609,8 +574,6 @@ RAID combines multiple disks to improve reliability and/or performance.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Instead of:
 storing all important documents in:
@@ -636,7 +599,7 @@ RAID reduces this risk.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 RAID:
 Redundant Array of Independent Disks.
@@ -716,18 +679,9 @@ Provides:
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-RAID 1:
-Disk A ↔ Disk B mirror.
-
-RAID 0:
-Data striped across disks.
-
-RAID 5:
-Data + parity blocks distributed.
+![alt text](assets/image14.png)
 
 ---
 
@@ -785,8 +739,6 @@ logical corruption protection.
 
 # Quick Summary
 
-[Quick Summary]
-
 * RAID improves storage resilience
 * Different RAID levels optimize differently
 * RAID is not backup
@@ -794,16 +746,13 @@ logical corruption protection.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 Redundancy helps systems survive failures.
 But distributed systems can fail in much more dangerous ways:
 failure propagation.
-─────────────────────────────────────────────
 
 # 5. CASCADING FAILURES
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -812,8 +761,6 @@ A cascading failure occurs when one system failure triggers failures in dependen
 ---
 
 # Intuition First
-
-[Analogy]
 
 Traffic accident on one road:
 forces rerouting,
@@ -833,7 +780,7 @@ propagate instability throughout entire infrastructure.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea 
 
 Failure in one component:
 causes increased pressure elsewhere,
@@ -921,8 +868,6 @@ Unbounded retries can destroy already struggling systems.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Failures can spread through dependencies
 * Retry storms are extremely dangerous
 * Small failures can trigger major outages
@@ -930,15 +875,14 @@ Unbounded retries can destroy already struggling systems.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 Since failures cannot be fully prevented,
 systems must degrade gracefully under stress.
-─────────────────────────────────────────────
+
+---
 
 # 6. GRACEFUL DEGRADATION
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -947,8 +891,6 @@ Graceful degradation means systems remain partially functional during failures.
 ---
 
 # Intuition First
-
-[Analogy]
 
 During a power shortage:
 a hospital disables:
@@ -970,7 +912,7 @@ core functionality first.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Under stress:
 systems intentionally reduce:
@@ -1037,7 +979,6 @@ priority resources.
 
 # Quick Summary
 
-[Quick Summary]
 
 * Systems should fail partially, not catastrophically
 * Graceful degradation preserves critical functionality
@@ -1045,15 +986,14 @@ priority resources.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 The final major resilience idea is:
 limiting how much damage failures can cause.
-─────────────────────────────────────────────
+
+---
 
 # 7. BLAST RADIUS
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -1062,8 +1002,6 @@ Blast radius measures how much of a system is affected by a failure.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Ships use compartments so:
 one leak does not sink entire vessel.
@@ -1083,7 +1021,7 @@ global outages.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea 
 
 Architectures should isolate:
 
@@ -1128,8 +1066,6 @@ This is a subtle but extremely important mindset shift.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Failures should remain isolated
 * Blast radius reduction limits damage
 * Compartmentalization improves resilience
@@ -1139,9 +1075,9 @@ This is a subtle but extremely important mindset shift.
 
 # END OF PART 6 — FAILURE, REDUNDANCY & RESILIENCE
 
-# What You Should Understand Now
+# What We Should Understand Now
 
-You should now understand:
+We should now understand:
 
 * why failures become inevitable at scale,
 * SPOFs,
@@ -1156,7 +1092,7 @@ You should now understand:
 
 Most importantly:
 
-You should now understand that:
+We should now understand that:
 large-scale systems are NOT designed around:
 preventing all failures.
 

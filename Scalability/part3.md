@@ -1,20 +1,8 @@
-# PART 3 — LOAD BALANCING & STATELESS ARCHITECTURE
+# PART 3 - LOAD BALANCING & STATELESS ARCHITECTURE
 
 # How Multiple Servers Cooperate
 
-Topic: Load Balancing, Stateless Systems & Shared State
-Difficulty: Beginner → Intermediate → Early Distributed Systems
-Purpose: Understand how traffic is distributed across servers and why stateless architecture is the foundation of scalable systems.
-
-Primary Source Basis:
-
-* “Scalability for Dummies — Part 1”
-* CS75 scalability concepts
-* “Scale From Zero to Millions of Users” architecture progression     
-
----
-
-# SECTION 0 — ORIENTATION
+# SECTION 0 - ORIENTATION
 
 # What is this part about?
 
@@ -84,9 +72,9 @@ This becomes the foundation for:
 
 ---
 
-# What will you understand by the end?
+# What will we understand by the end?
 
-By the end of this part, you will understand:
+By the end of this part, we will understand:
 
 * how load balancers work,
 * DNS vs real load balancing,
@@ -95,7 +83,7 @@ By the end of this part, you will understand:
 * sticky sessions,
 * stateless architecture,
 * shared session stores,
-* Redis sessions,
+* Redis session management,
 * deployment consistency,
 * immutable infrastructure foundations,
 * why scalable servers must become interchangeable.
@@ -133,8 +121,6 @@ Required:
 
 # 1. WHY MULTIPLE SERVERS CREATE NEW PROBLEMS
 
-─────────────────────────────────────────────
-
 # The One-Line Definition
 
 Adding more servers solves capacity problems but creates coordination problems.
@@ -143,10 +129,8 @@ Adding more servers solves capacity problems but creates coordination problems.
 
 # Intuition First
 
-[Analogy]
-
 Imagine:
-you expanded from:
+we expanded from:
 1 restaurant
 to
 10 restaurants.
@@ -183,7 +167,7 @@ This is the beginning of distributed systems complexity.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Horizontal scaling introduces:
 
@@ -200,7 +184,7 @@ coordinate multiple independent machines.
 # Worked Example
 
 Suppose:
-you add 10 web servers.
+we add 10 web servers.
 
 Question:
 How do users know which server to connect to?
@@ -231,8 +215,6 @@ new operational complexity.
 
 # Quick Summary
 
-[Quick Summary]
-
 * More servers solve capacity problems
 * More servers create coordination problems
 * Distributed systems require traffic management
@@ -240,15 +222,14 @@ new operational complexity.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 The first coordination problem is:
 “How do incoming requests get distributed?”
-─────────────────────────────────────────────
+
+---
 
 # 2. DNS ROUND ROBIN — THE SIMPLEST LOAD DISTRIBUTION
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -257,8 +238,6 @@ DNS round robin distributes traffic by rotating returned IP addresses.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Imagine:
 a receptionist alternates customers between:
@@ -282,7 +261,7 @@ DNS can help distribute users across servers.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Normally:
 DNS maps:
@@ -400,8 +379,6 @@ real load balancers.
 
 # Quick Summary
 
-[Quick Summary]
-
 * DNS round robin distributes IPs
 * Very simple load distribution
 * No awareness of server health/load
@@ -410,16 +387,16 @@ real load balancers.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 DNS balancing is primitive.
 Real scalable systems need smarter traffic routing.
 That leads to load balancers.
-─────────────────────────────────────────────
+
+---
 
 # 3. LOAD BALANCERS — THE TRAFFIC CONTROLLER
 
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -428,8 +405,6 @@ A load balancer intelligently distributes incoming traffic across multiple backe
 ---
 
 # Intuition First
-
-[Analogy]
 
 Imagine an airport traffic controller.
 
@@ -457,7 +432,7 @@ Load balancers centralize traffic control.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Clients connect to:
 one public endpoint.
@@ -475,22 +450,13 @@ Users never directly access them.
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-Internet
-↓
-Load Balancer
-├── Server 1
-├── Server 2
-├── Server 3
-
-LB distributes traffic.
+![alt text](assets/image7.png)
 
 ---
 
-# How It Works — Step by Step
+# How It Works
 
 1. User resolves domain
 2. DNS returns LB IP
@@ -519,8 +485,6 @@ This abstraction is extremely powerful.
 ---
 
 # Public vs Private IPs
-
-Source material strongly hinted at this.
 
 Important architecture pattern:
 
@@ -651,8 +615,6 @@ They are major infrastructure components.
 
 # Quick Summary
 
-[Quick Summary]
-
 * LB intelligently distributes traffic
 * Backend servers stay private
 * Health checks enable failover
@@ -661,16 +623,14 @@ They are major infrastructure components.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge
+
 Now traffic distribution works.
 But another massive problem appears:
 user state.
-─────────────────────────────────────────────
 
 # 4. THE SESSION PROBLEM — WHY STATE BREAKS SCALING
 
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -679,8 +639,6 @@ Stateful servers break horizontal scalability because requests may hit different
 ---
 
 # Intuition First
-
-[Analogy]
 
 Suppose:
 a customer visits Restaurant Branch A.
@@ -713,7 +671,7 @@ requests routed elsewhere fail.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea 
 
 In load-balanced systems:
 requests from same user may hit:
@@ -787,8 +745,6 @@ This is one of the deepest cloud architecture lessons.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Stateful servers break horizontal scaling
 * Users may hit different servers
 * Sticky sessions are imperfect
@@ -796,15 +752,11 @@ This is one of the deepest cloud architecture lessons.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge:
 To solve the session problem,
 modern systems evolved toward stateless architecture.
-─────────────────────────────────────────────
 
 # 5. STATELESS ARCHITECTURE — THE FOUNDATION OF CLOUD SYSTEMS
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -814,12 +766,10 @@ Stateless servers do not store user-specific persistent state locally.
 
 # Intuition First
 
-[Analogy]
-
-Imagine every cashier in a supermarket can serve you because:
+Imagine every cashier in a supermarket can serve us because:
 all customer information exists centrally.
 
-Any cashier can continue your transaction.
+Any cashier can continue our transaction.
 
 That is stateless architecture.
 
@@ -838,7 +788,7 @@ Local state prevents all of these.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Application servers should contain:
 ONLY:
@@ -860,19 +810,9 @@ All persistent state should be externalized:
 
 ---
 
-# Visual / Diagram Description
+# Diagram 
 
-[Diagram]
-
-Users
-↓
-Load Balancer
-↓
-Stateless Servers
-↓
-Shared Redis Session Store
-
-Any server can process any request.
+![alt text](assets/image8.png)
 
 ---
 
@@ -908,9 +848,6 @@ This is foundational cloud philosophy.
 ---
 
 # Redis as Session Store
-
-Source material strongly recommended:
-external persistent cache.
 
 Redis commonly stores:
 
@@ -959,12 +896,10 @@ This is one of the biggest revolutions in modern cloud systems.
 
 Partial state externalization causes:
 extremely difficult debugging.
-
+Keeping related data partly in component state and partly in global/shared state. This creates multiple sources of truth, causing state inconsistency, synchronization issues, and difficult debugging. Prefer a single source of truth for any piece of data.
 ---
 
 # Quick Summary
-
-[Quick Summary]
 
 * Stateless servers externalize persistent state
 * Any server can handle any request
@@ -974,16 +909,13 @@ extremely difficult debugging.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge:
+
 Now servers are interchangeable.
 But scalable systems still need one more capability:
 rapid reproducible infrastructure deployment.
-─────────────────────────────────────────────
 
 # 6. DEPLOYMENT CONSISTENCY & IMMUTABLE INFRASTRUCTURE
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -993,13 +925,10 @@ Scalable infrastructure requires servers to be reproducible and identical.
 
 # Intuition First
 
-[Analogy]
-
 Imagine:
 10 restaurant branches.
 
 One branch:
-
 * new menu,
 * different prices,
 * outdated recipes.
@@ -1039,7 +968,7 @@ Very common production problem.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Modern scalable systems use:
 identical server templates.
@@ -1052,10 +981,9 @@ consistent behavior.
 
 ---
 
-# Capistrano Insight From Source
+# Capistrano (Capistrano is an open-source automation tool designed for deploying web applications to remote servers via SSH) Insight
 
-The source mentioned:
-deployment synchronization across servers.
+Deployment synchronization across servers.
 
 Hidden lesson:
 deployment itself becomes distributed systems engineering.
@@ -1065,9 +993,8 @@ updating infrastructure safely becomes difficult.
 
 ---
 
-# AWS AMIs — Immutable Infrastructure
+# AWS AMIs - Immutable Infrastructure
 
-The source referenced:
 Amazon Machine Images (AMIs).
 
 Important hidden concept:
@@ -1100,19 +1027,9 @@ replace old servers with new cloned versions.
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-Golden Image (AMI)
-↓
-Clone
-↓
-Clone
-↓
-Clone
-
-All servers identical.
+![alt text](assets/image9.png)
 
 ---
 
@@ -1152,8 +1069,6 @@ Modern systems avoid this heavily.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Multi-server systems require consistency
 * Immutable infrastructure solves deployment drift
 * AMIs create reproducible server templates
@@ -1161,11 +1076,11 @@ Modern systems avoid this heavily.
 
 ---
 
-# END OF PART 3 — LOAD BALANCING & STATELESS SYSTEMS
+# END OF PART 3 - LOAD BALANCING & STATELESS SYSTEMS
 
-# What You Should Understand Now
+# What We Should Understand Now
 
-You should now understand:
+We should now understand:
 
 * why traffic distribution exists,
 * DNS balancing limitations,
@@ -1178,7 +1093,7 @@ You should now understand:
 
 Most importantly:
 
-You should now understand that:
+We should now understand that:
 modern cloud systems are fundamentally built around:
 
 * disposable stateless servers,

@@ -206,7 +206,7 @@ Everything happens on one machine.
 # Worked Example
 
 Suppose:
-you build a small notes app.
+we build a small notes app.
 
 One EC2 instance runs:
 
@@ -327,10 +327,10 @@ Vertical scaling means increasing the power of a single machine.
 
 # Intuition First
 
-Your restaurant becomes crowded.
+Our restaurant becomes crowded.
 
 Instead of opening more restaurants:
-you buy:
+we buy:
 
 * bigger kitchen,
 * faster ovens,
@@ -841,10 +841,10 @@ assuming:
 
 Horizontal scaling changes the nature of the problem.
 
-You no longer manage:
+We no longer manage:
 one machine.
 
-You now manage:
+We now manage:
 a distributed system.
 
 That introduces:

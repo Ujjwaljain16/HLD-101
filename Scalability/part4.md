@@ -1,17 +1,4 @@
 # PART 4 — DATABASE SCALING & DATA ARCHITECTURE
-
-# Why Databases Become the Biggest Bottleneck
-
-Topic: Database Scaling, Replication, SQL vs NoSQL, Denormalization
-Difficulty: Beginner → Intermediate → Early Advanced
-Purpose: Understand why databases become scaling bottlenecks and how real systems evolve their data architecture under growth.
-
-Primary Source Basis:
-
-* “Scalability for Dummies — Part 2: Database”
-* “Scale From Zero to Millions of Users”
-* Scalability architecture discussions     
-
 ---
 
 # SECTION 0 — ORIENTATION
@@ -93,9 +80,9 @@ Most large-scale systems are ultimately constrained by:
 
 ---
 
-# What will you understand by the end?
+# What will we understand by the end?
 
-By the end of this part, you will understand:
+By the end of this part, we will understand:
 
 * why databases become bottlenecks,
 * read vs write scaling,
@@ -140,8 +127,6 @@ Required:
 
 # 1. WHY DATABASES BECOME BOTTLENECKS
 
-─────────────────────────────────────────────
-
 # The One-Line Definition
 
 As systems grow, databases often become the hardest component to scale.
@@ -150,7 +135,6 @@ As systems grow, databases often become the hardest component to scale.
 
 # Intuition First
 
-[Analogy]
 
 Imagine:
 a restaurant expanded successfully.
@@ -191,7 +175,7 @@ This is one of the most common scaling bottlenecks.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Databases are difficult to scale because they manage:
 
@@ -244,17 +228,7 @@ DB overloads before web tier.
 
 # Visual / Diagram Description
 
-[Diagram]
-
-Users
-↓
-Load Balancer
-↓
-10 App Servers
-↓
-1 Database
-
-Database becomes red bottleneck.
+![alt text](assets/image10.png)
 
 ---
 
@@ -305,26 +279,21 @@ DB collapses.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Databases commonly become bottlenecks
 * DBs manage shared persistent state
 * Scaling DBs is harder than scaling app servers
-* Reads/writes grow with traffic
+* Reads and writes grow with traffic
 * Centralized DBs eventually overload
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge:
+
 To scale databases properly,
 we first need to understand one critical workload reality:
 most systems are read-heavy.
-─────────────────────────────────────────────
 
 # 2. READS VS WRITES — THE FUNDAMENTAL ASYMMETRY
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -333,8 +302,6 @@ Most applications perform far more reads than writes.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Imagine Instagram.
 
@@ -361,7 +328,7 @@ database scaling strategies.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Typical large systems:
 
@@ -432,8 +399,6 @@ This heavily influences:
 
 # Quick Summary
 
-[Quick Summary]
-
 * Most systems are read-heavy
 * Reads scale more easily than writes
 * Workload asymmetry shapes architecture
@@ -441,17 +406,14 @@ This heavily influences:
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge:
+
 If reads dominate,
 one obvious idea emerges:
 “Why not create multiple copies of the database?”
 That leads to replication.
-─────────────────────────────────────────────
 
 # 3. DATABASE REPLICATION
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -460,8 +422,6 @@ Replication copies database data across multiple database servers.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Instead of:
 one library handling all readers,
@@ -485,7 +445,7 @@ Replication addresses these issues.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Database replication creates:
 multiple synchronized copies of data.
@@ -517,19 +477,9 @@ Data copied from master → replicas.
 
 ---
 
-# Visual / Diagram Description
+# Diagram
 
-[Diagram]
-
-App Servers
-↓
-Master DB (writes)
-↓ replication
-Replica 1
-Replica 2
-Replica 3
-
-Reads distributed across replicas.
+![alt text](assets/image11.png)
 
 ---
 
@@ -663,8 +613,6 @@ strong consistency workloads.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Replication creates DB copies
 * Reads scale through replicas
 * Writes centralized to master
@@ -673,16 +621,14 @@ strong consistency workloads.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+
+# Bridge:
 Replication improves scaling and availability.
 But now another difficult problem appears:
 “What happens if the master dies?”
-─────────────────────────────────────────────
+
 
 # 4. FAILOVER & HIGH AVAILABILITY
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -691,8 +637,6 @@ Failover promotes backup infrastructure when primary systems fail.
 ---
 
 # Intuition First
-
-[Analogy]
 
 Suppose:
 main power station fails.
@@ -707,8 +651,7 @@ That is failover.
 
 Without failover:
 master DB crash
-===============
-
+↓
 system outage.
 
 Large-scale systems cannot tolerate:
@@ -716,7 +659,7 @@ single-machine dependency.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 When master fails:
 one replica becomes new master.
@@ -828,8 +771,6 @@ coordination-heavy.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Failover improves availability
 * Replicas can become masters
 * Recovery is operationally complex
@@ -838,17 +779,17 @@ coordination-heavy.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+# Bridge:
+
 Replication solves some scaling problems.
 But eventually:
 even replicated SQL systems begin struggling at scale.
 That leads to NoSQL and denormalization.
-─────────────────────────────────────────────
+
+---
 
 # 5. SQL VS NOSQL — SCALING PHILOSOPHIES
 
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -987,7 +928,6 @@ application logic.
 
 # Quick Summary
 
-[Quick Summary]
 
 * SQL prioritizes relational correctness
 * NoSQL prioritizes scalability/distribution
@@ -996,15 +936,15 @@ application logic.
 
 ---
 
-─────────────────────────────────────────────
-Bridge:
+
+# Bridge:
+
 One of the biggest architectural changes at scale is:
 denormalization.
-─────────────────────────────────────────────
+
+---
 
 # 6. DENORMALIZATION & APPLICATION-SIDE JOINS
-
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -1014,11 +954,8 @@ Denormalization duplicates data to reduce expensive joins.
 
 # Intuition First
 
-[Analogy]
-
 Instead of:
 walking through multiple warehouses to assemble one product package,
-
 pre-package everything together.
 
 Faster access.
@@ -1035,7 +972,7 @@ Large distributed joins are especially painful.
 
 ---
 
-# The Core Idea (Precise)
+# The Core Idea
 
 Traditional normalization:
 reduces redundancy.
@@ -1070,8 +1007,6 @@ Reads become faster.
 ---
 
 # Application-Side Joins
-
-The source explicitly discussed this.
 
 Instead of:
 DB performing joins,
@@ -1155,8 +1090,6 @@ trade normalization for scalability.
 
 # Quick Summary
 
-[Quick Summary]
-
 * Denormalization duplicates data intentionally
 * Reduces expensive joins
 * Common in scalable architectures
@@ -1167,7 +1100,6 @@ trade normalization for scalability.
 
 # 7. EARLY SHARDING INTUITION
 
-─────────────────────────────────────────────
 
 # The One-Line Definition
 
@@ -1206,7 +1138,7 @@ both reads AND writes.
 
 # Important Note
 
-The source only hinted at sharding.
+This source only hinted at sharding.
 
 But it is important to introduce the intuition here.
 
@@ -1215,8 +1147,6 @@ Deep sharding mechanics belong later in distributed systems topics.
 ---
 
 # Quick Summary
-
-[Quick Summary]
 
 * Replication scales reads
 * Sharding scales storage/writes
@@ -1227,9 +1157,9 @@ Deep sharding mechanics belong later in distributed systems topics.
 
 # END OF PART 4 — DATABASE SCALING & DATA ARCHITECTURE
 
-# What You Should Understand Now
+# What We Should Understand Now
 
-You should now understand:
+We should now understand:
 
 * why DBs become bottlenecks,
 * why reads dominate workloads,
@@ -1244,7 +1174,7 @@ You should now understand:
 
 Most importantly:
 
-You should now understand that:
+We should now understand that:
 scaling databases is NOT merely a hardware problem.
 
 It is fundamentally:

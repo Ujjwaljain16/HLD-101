@@ -916,10 +916,11 @@ The next section studies:
 > how protocol visibility fundamentally changes what load balancers can observe and optimize.
 
 ---
+# Diagram
+
+![alt text](assets/image3.png)
 
 # Quick Summary
-
-[Quick Summary]
 
 * Sticky sessions intentionally route clients repeatedly to the same backend.
 * Locality improves latency by preserving:

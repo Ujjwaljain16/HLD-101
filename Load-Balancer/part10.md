@@ -1027,9 +1027,11 @@ Large systems scale not merely by:
 
 ---
 
-# Final Quick Summary
+# Diagram 
 
-[Final Quick Summary]
+![alt text](assets/image10.png)
+
+# Final Quick Summary
 
 * Modern distributed systems are fundamentally traffic-coordination systems.
 * Requests interact simultaneously with:

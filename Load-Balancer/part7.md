@@ -930,10 +930,11 @@ The next section studies:
 * and the physical limits imposed by the speed of light.
 
 ---
+# Diagram 
+
+![alt text](assets/image7.png)
 
 # Quick Summary
-
-[Quick Summary]
 
 * Modern systems increasingly balance long-lived connections and streams rather than isolated requests.
 * TCP/TLS handshakes are expensive, making connection reuse critically important.

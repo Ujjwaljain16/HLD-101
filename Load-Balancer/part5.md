@@ -933,9 +933,10 @@ The next section studies:
 
 ---
 
-# Quick Summary
+# Diagram
+![alt text](assets/image5.png)
 
-[Quick Summary]
+# Quick Summary
 
 * Failure detection in distributed systems is fundamentally probabilistic.
 * Health is multidimensional:

@@ -6,7 +6,6 @@
 
 Section 1 established:
 
-* why horizontal scaling becomes necessary,
 * why reverse proxies emerge,
 * why traffic coordination infrastructure exists.
 
@@ -948,8 +947,6 @@ The next section studies:
 ---
 
 # Quick Summary
-
-[Quick Summary]
 
 * Load balancing algorithms attempt to distribute work under incomplete information.
 * Equal request count does NOT mean equal backend load.

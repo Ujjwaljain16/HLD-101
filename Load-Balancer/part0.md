@@ -1,9 +1,5 @@
 # Topic: Load Balancing as Distributed Traffic Coordination Infrastructure
 
-**Source Type:** Mixed (SystemOverflow, AWS, scalability architecture references)
-**Difficulty:** Beginner → Advanced → Production
-**Purpose:** Self-sufficient mastery notes for understanding how distributed systems coordinate traffic, maintain stability, survive failures, and evolve under scale. No external reference needed.
-
 ---
 
 # SECTION 0 — ORIENTATION
@@ -172,7 +168,7 @@ This transforms load balancing into:
 
 # Mental Prerequisite Check
 
-You should ideally know:
+We should ideally know:
 
 * basic client-server architecture,
 * what a server is,
@@ -181,12 +177,6 @@ You should ideally know:
 * basic latency intuition.
 
 Nothing deeper is required.
-
-Advanced concepts will be introduced gradually:
-
-* intuition first,
-* then precise mechanics,
-* then production realities.
 
 ---
 
@@ -343,37 +333,7 @@ At scale:
 
 Every later section in these notes explains one piece of this flow.
 
-[Diagram]
-
-User Browser / Mobile App
-↓
-DNS Resolution
-↓
-Global Router / Anycast Edge
-↓
-Regional Load Balancer
-↓
-L4 Routing (flow distribution)
-↓
-L7 Proxy (TLS termination + routing)
-↓
-Connection Pool
-↓
-Backend Service Queue
-↓
-Application Server
-↓
-Database / Cache / Downstream Services
-↓
-Response Returns Through System
-
-At each step:
-
-* latency accumulates,
-* queues form,
-* retries may happen,
-* failures may occur,
-* routing decisions may change.
+![alt text](assets/image.png)
 
 Load balancing is fundamentally about:
 
@@ -383,9 +343,7 @@ Load balancing is fundamentally about:
 
 # Intuition First
 
-[Analogy]
-
-Most beginner explanations compare load balancing to a restaurant host assigning customers to waiters.
+Most beginner explanations compare load balancing to a restaurant host assigning customers to waiters so did we in scalability section as well.
 
 That intuition is useful initially:
 
@@ -560,9 +518,9 @@ This becomes one of the central recurring themes of the entire topic.
 
 ---
 
-# What You Will Fully Understand By the End
+# What We Will Fully Understand By the End
 
-By the end of these notes, you will understand:
+By the end of these notes, we will understand:
 
 * why load balancing evolves far beyond simple request distribution,
 * how traffic coordination changes under scale,
@@ -577,13 +535,11 @@ By the end of these notes, you will understand:
 
 Most importantly:
 
-> you will learn how experienced engineers think about traffic, failure, overload, locality, and stability as one connected distributed-systems problem.
+> we will learn how experienced engineers think about traffic, failure, overload, locality, and stability as one connected distributed-systems problem.
 
 ---
 
 # Quick Summary
-
-[Quick Summary]
 
 * Load balancing is fundamentally distributed traffic coordination under uncertainty.
 * Modern load balancers are distributed control systems, not simple traffic splitters.

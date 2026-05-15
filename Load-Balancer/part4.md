@@ -38,7 +38,7 @@ A load balancer operating at:
   sees:
 * URLs,
 * headers,
-* cookies,
+* cookies, 
 * RPC methods,
 * HTTP semantics.
 
@@ -984,9 +984,11 @@ Because:
 
 ---
 
-# Quick Summary
+# Diagram
 
-[Quick Summary]
+![alt text](assets/image4.png)
+
+# Quick Summary
 
 * L4 balances flows/connections using transport-layer metadata.
 * L7 balances requests/streams using application-layer semantics.

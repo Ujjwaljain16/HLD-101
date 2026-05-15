@@ -999,10 +999,11 @@ The next section studies:
 * and operational scaling behavior in real production systems.
 
 ---
+# Diagram
+
+![alt text](assets/image8.png)
 
 # Quick Summary
-
-[Quick Summary]
 
 * Global load balancing routes traffic across geographic regions rather than individual servers.
 * The speed of light imposes unavoidable latency floors on distributed systems.

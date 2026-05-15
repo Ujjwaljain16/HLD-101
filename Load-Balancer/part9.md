@@ -1029,10 +1029,11 @@ And connect all prior sections into:
 > one unified systems-engineering narrative.
 
 ---
+# Diagram 
+
+![alt text](assets/image9.png)
 
 # Quick Summary
-
-[Quick Summary]
 
 * Real-world scaling behavior is non-linear due to coordination cost and instability dynamics.
 * Effective capacity is always lower than theoretical capacity.

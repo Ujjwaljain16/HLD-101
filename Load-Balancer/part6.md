@@ -1019,10 +1019,11 @@ Because:
 > balancing requests is much easier than balancing long-lived connections with multiplexed traffic.
 
 ---
+# Diagram
+
+![alt text](assets/image6.png)    
 
 # Quick Summary
-
-[Quick Summary]
 
 * Distributed systems commonly fail through amplification rather than isolated faults.
 * Queue growth and waiting time are central to most production outages.

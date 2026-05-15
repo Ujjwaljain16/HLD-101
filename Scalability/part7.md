@@ -1194,6 +1194,8 @@ We continuously balance:
 Perfect optimization of all dimensions is impossible.
 
 ---
+# Diagram
+![alt text](assets/image15.png)
 
 # END OF PART 7 — DISTRIBUTED SYSTEMS REALITY
 
